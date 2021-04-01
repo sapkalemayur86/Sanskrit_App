@@ -1,17 +1,17 @@
-package com.example.android.miwok;
+package com.example.android.sanskrit;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ColorsActivity extends AppCompatActivity {
+public class FamilyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new ColorsFragment())
+                .replace(R.id.container, new FamilyFragment())
                 .commit();
     }
 }

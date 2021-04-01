@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.sanskrit;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NumbersFragment#newInstance} factory method to
+ * Use the {@link PhrasesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NumbersFragment extends Fragment {
+public class PhrasesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +31,7 @@ public class NumbersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer;
     private AudioManager audioManager;
 
     private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -52,6 +52,7 @@ public class NumbersFragment extends Fragment {
             }
         }
     };
+
     private MediaPlayer.OnCompletionListener completionListener=new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
@@ -59,7 +60,7 @@ public class NumbersFragment extends Fragment {
         }
     };
 
-    public NumbersFragment() {
+    public PhrasesFragment() {
         // Required empty public constructor
     }
 
@@ -69,11 +70,11 @@ public class NumbersFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NumbersFragment.
+     * @return A new instance of fragment PhrasesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NumbersFragment newInstance(String param1, String param2) {
-        NumbersFragment fragment = new NumbersFragment();
+    public static PhrasesFragment newInstance(String param1, String param2) {
+        PhrasesFragment fragment = new PhrasesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,25 +97,25 @@ public class NumbersFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView =inflater.inflate(R.layout.word_list, container, false);
 
-        audioManager=(AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
 
-        final ArrayList<Words> words = new ArrayList<Words>();
-        words.add(new Words("one", "एकः",R.drawable.number_one,R.raw.one));
-        words.add(new Words("two", "द्वौ",R.drawable.number_two,R.raw.two));
-        words.add(new Words("three", "त्रयः",R.drawable.number_three,R.raw.three));
-        words.add(new Words("four", "चत्वारः",R.drawable.number_four,R.raw.four));
-        words.add(new Words("five", "पञ्च",R.drawable.number_five,R.raw.five));
-        words.add(new Words("six", "षट्",R.drawable.number_six,R.raw.six));
-        words.add(new Words("seven", "सप्त",R.drawable.number_seven,R.raw.seaven));
-        words.add(new Words("eight", "अष्ट",R.drawable.number_eight,R.raw.eight));
-        words.add(new Words("nine", "नव",R.drawable.number_nine,R.raw.nine));
-        words.add(new Words("ten", "दश",R.drawable.number_ten,R.raw.ten));
+        final ArrayList<Words> words=new ArrayList<Words>() ;
+
+        words.add(new Words("Hello","नमो नमः, नमस्कारः",R.raw.hello));
+        words.add(new Words("Good-Bye", "पुनर्दर्शनाय",R.raw.goodby));
+        words.add(new Words("Please", "कृपया",R.raw.please));
+        words.add(new Words("Thank you", "अनुगृहितोऽस्मि",R.raw.thanks));
+        words.add(new Words("That one", "अयमेव",R.raw.thanks));
+        words.add(new Words("How much?", "कियत्",R.raw.howmuch));
+        words.add(new Words("English", "आंग्लभाषा",R.raw.english));
+        words.add(new Words("Yes", "आम् , एवम्",R.raw.yes));
+        words.add(new Words("No", "न , नास्ति , नैवम्",R.raw.no));
+        words.add(new Words("Let good happen", "शुभमस्तु",R.raw.letgoodhappen));
 
 
+        WordAdapter adapter=new WordAdapter(getActivity(),words,R.color.category_phrases);
 
-        WordAdapter adapter =new WordAdapter(getActivity(),words,R.color.category_numbers);
-
-        ListView listView = (ListView) rootView.findViewById(R.id.list);
+        ListView listView=(ListView)rootView.findViewById(R.id.list);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,7 +123,6 @@ public class NumbersFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Words word=words.get(i);
-
                 // Request audio focus for playback
                 int result = audioManager.requestAudioFocus(mOnAudioFocusChangeListener,
                         // Use the music stream.
@@ -141,19 +141,16 @@ public class NumbersFragment extends Fragment {
 
 
 
-
             }
         });
 
+
         return rootView;
-
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
         releaseMediaPlayer();
     }
 
@@ -172,4 +169,5 @@ public class NumbersFragment extends Fragment {
             audioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
     }
+
 }

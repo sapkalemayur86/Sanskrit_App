@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.sanskrit;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

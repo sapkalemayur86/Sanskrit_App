@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.sanskrit;
 
 
 import androidx.appcompat.app.AppCompatActivity;

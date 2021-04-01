@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.sanskrit;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PhrasesFragment#newInstance} factory method to
+ * Use the {@link FamilyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PhrasesFragment extends Fragment {
+public class FamilyFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,8 +30,8 @@ public class PhrasesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     MediaPlayer mediaPlayer;
+
     private AudioManager audioManager;
 
     private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -60,7 +60,7 @@ public class PhrasesFragment extends Fragment {
         }
     };
 
-    public PhrasesFragment() {
+    public FamilyFragment() {
         // Required empty public constructor
     }
 
@@ -70,11 +70,11 @@ public class PhrasesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PhrasesFragment.
+     * @return A new instance of fragment FamilyFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PhrasesFragment newInstance(String param1, String param2) {
-        PhrasesFragment fragment = new PhrasesFragment();
+    public static FamilyFragment newInstance(String param1, String param2) {
+        FamilyFragment fragment = new FamilyFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -95,27 +95,26 @@ public class PhrasesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =inflater.inflate(R.layout.word_list, container, false);
+        View rootView=inflater.inflate(R.layout.word_list, container, false);
+        audioManager=(AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
-        audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
-
-        final ArrayList<Words> words=new ArrayList<Words>() ;
-
-        words.add(new Words("Hello","नमो नमः, नमस्कारः",R.raw.hello));
-        words.add(new Words("Good-Bye", "पुनर्दर्शनाय",R.raw.goodby));
-        words.add(new Words("Please", "कृपया",R.raw.please));
-        words.add(new Words("Thank you", "अनुगृहितोऽस्मि",R.raw.thanks));
-        words.add(new Words("That one", "अयमेव",R.raw.thanks));
-        words.add(new Words("How much?", "कियत्",R.raw.howmuch));
-        words.add(new Words("English", "आंग्लभाषा",R.raw.english));
-        words.add(new Words("Yes", "आम् , एवम्",R.raw.yes));
-        words.add(new Words("No", "न , नास्ति , नैवम्",R.raw.no));
-        words.add(new Words("Let good happen", "शुभमस्तु",R.raw.letgoodhappen));
+        final ArrayList<Words> words = new ArrayList<Words>();
+        words.add(new Words("Father", "पिता / जनक",R.drawable.family_father,R.raw.father));
+        words.add(new Words("Mother", "माता / जननी ",R.drawable.family_mother,R.raw.mother));
+        words.add(new Words("Son", "पुत्र",R.drawable.family_son,R.raw.son));
+        words.add(new Words("Daughter", "पुत्री",R.drawable.family_daughter,R.raw.daughter));
+        words.add(new Words("Older Brother", "ज्येष्ठ",R.drawable.family_older_brother,R.raw.bigbro));
+        words.add(new Words("Older Sister", "ज्येष्ठा",R.drawable.family_older_sister,R.raw.bigsis));
+        words.add(new Words("Younger Brother", "अनुज ",R.drawable.family_younger_brother,R.raw.yougerbro));
+        words.add(new Words("younger Sister", "अनुजा ",R.drawable.family_younger_sister,R.raw.youngersis));
+        words.add(new Words("Grandfather", "पितामह",R.drawable.family_grandfather,R.raw.grandfather));
+        words.add(new Words("Grandmother", "पितामही",R.drawable.family_grandmother,R.raw.grandmother));
 
 
-        WordAdapter adapter=new WordAdapter(getActivity(),words,R.color.category_phrases);
 
-        ListView listView=(ListView)rootView.findViewById(R.id.list);
+        WordAdapter adapter =new WordAdapter(getActivity(),words,R.color.category_family);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,6 +122,7 @@ public class PhrasesFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Words word=words.get(i);
+
                 // Request audio focus for playback
                 int result = audioManager.requestAudioFocus(mOnAudioFocusChangeListener,
                         // Use the music stream.
@@ -143,8 +143,6 @@ public class PhrasesFragment extends Fragment {
 
             }
         });
-
-
         return rootView;
     }
 

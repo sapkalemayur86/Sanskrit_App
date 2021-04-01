@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.sanskrit;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FamilyFragment#newInstance} factory method to
+ * Use the {@link ColorsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FamilyFragment extends Fragment {
+public class ColorsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +30,7 @@ public class FamilyFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
     MediaPlayer mediaPlayer;
 
     private AudioManager audioManager;
@@ -60,7 +61,7 @@ public class FamilyFragment extends Fragment {
         }
     };
 
-    public FamilyFragment() {
+    public ColorsFragment() {
         // Required empty public constructor
     }
 
@@ -70,11 +71,11 @@ public class FamilyFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FamilyFragment.
+     * @return A new instance of fragment ColorsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FamilyFragment newInstance(String param1, String param2) {
-        FamilyFragment fragment = new FamilyFragment();
+    public static ColorsFragment newInstance(String param1, String param2) {
+        ColorsFragment fragment = new ColorsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,23 +97,22 @@ public class FamilyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView=inflater.inflate(R.layout.word_list, container, false);
+
         audioManager=(AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Words> words = new ArrayList<Words>();
-        words.add(new Words("Father", "पिता / जनक",R.drawable.family_father,R.raw.father));
-        words.add(new Words("Mother", "माता / जननी ",R.drawable.family_mother,R.raw.mother));
-        words.add(new Words("Son", "पुत्र",R.drawable.family_son,R.raw.son));
-        words.add(new Words("Daughter", "पुत्री",R.drawable.family_daughter,R.raw.daughter));
-        words.add(new Words("Older Brother", "ज्येष्ठ",R.drawable.family_older_brother,R.raw.bigbro));
-        words.add(new Words("Older Sister", "ज्येष्ठा",R.drawable.family_older_sister,R.raw.bigsis));
-        words.add(new Words("Younger Brother", "अनुज ",R.drawable.family_younger_brother,R.raw.yougerbro));
-        words.add(new Words("younger Sister", "अनुजा ",R.drawable.family_younger_sister,R.raw.youngersis));
-        words.add(new Words("Grandfather", "पितामह",R.drawable.family_grandfather,R.raw.grandfather));
-        words.add(new Words("Grandmother", "पितामही",R.drawable.family_grandmother,R.raw.grandmother));
+        words.add(new Words("Red", "लोहितः / रक्तवर्णः",R.drawable.color_red,R.raw.red));
+        words.add(new Words("Green", "हरितः / पलाशः",R.drawable.color_green,R.raw.green));
+        words.add(new Words("White", "शुक्लः / श्वेतः",R.drawable.color_white,R.raw.white));
+        words.add(new Words("Black", "श्यामः / कालः",R.drawable.color_black,R.raw.black));
+        words.add(new Words("Brown", "श्यावः / कपिशः",R.drawable.color_brown,R.raw.brown));
+        words.add(new Words("Yellow", "पीतः / हरिद्राभः",R.drawable.color_mustard_yellow,R.raw.yellow));
+        words.add(new Words("Grey", "धूसरः / धूषरः",R.drawable.color_gray,R.raw.gray));
 
 
 
-        WordAdapter adapter =new WordAdapter(getActivity(),words,R.color.category_family);
+
+        WordAdapter adapter =new WordAdapter(getActivity(),words,R.color.category_colors);
 
         ListView listView = (ListView) rootView.findViewById(R.id.list);
 
@@ -121,8 +121,8 @@ public class FamilyFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Words word=words.get(i);
 
+                Words word=words.get(i);
                 // Request audio focus for playback
                 int result = audioManager.requestAudioFocus(mOnAudioFocusChangeListener,
                         // Use the music stream.
@@ -167,5 +167,4 @@ public class FamilyFragment extends Fragment {
             audioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
     }
-
 }
